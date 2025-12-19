@@ -1,0 +1,24 @@
+import mysql.connector
+
+db = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="",
+    database="dbkaryawan"   
+)
+
+cursor = db.cursor()
+
+nim = input("Masukkan NIP yang mau dihapus: ")
+
+sql = "DELETE FROM pegawai WHERE nip = %s"
+cursor.execute(sql, (nim,))
+db.commit()
+
+if cursor.rowcount > 0:
+    print("Data berhasil dihapus")
+else:
+    print("NIP tidak ditemukan")
+
+cursor.close()
+db.close()
