@@ -1,0 +1,41 @@
+import mysql.connector
+
+db = mysql.connector.connect(
+    host='localhost',
+    user='root',
+    password='',
+    database='dbkaryawan'
+)
+
+cursor = db.cursor()
+
+sql = """
+UPDATE pegawai 
+SET nama = %s , jabatan = %s, divisi = %s, gaji = %s
+WHERE nip = %s
+"""
+
+
+while True:
+    nip = input("Masukkan nip yang ingin diubah : ")
+    nama = input("masukkan nama baru : ")
+    jabatan = input("masukkan jabatan baru : ")
+    divisi = input("masukkan divisi baru : ")
+    gaji = input("masukkan gaji baru : ")
+    cursor.execute(sql, (nama, jabatan, divisi, gaji,nip))
+    db.commit()
+
+    lanjut = input("ubah data (y/n): ")
+    if lanjut.lower() != 'y':
+        break
+
+print("Selesai")
+
+if cursor.rowcount > 0:
+    print("Data berhasil diubah")
+else:
+    print("nip tidak ditemukan")
+
+cursor.close()
+db.close()
+
