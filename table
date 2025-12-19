@@ -1,0 +1,22 @@
+import mysql.connector
+
+db = mysql.connector.connect(
+    host='localhost',
+    user='root',
+    password='',
+    database='dbkaryawan'
+)
+
+cursor = db.cursor()
+
+sql = """
+CREATE TABLE IF NOT EXISTS pegawai (
+    NIP CHAR(4) PRIMARY KEY,
+    NAMA VARCHAR(50),
+    JABATAN VARCHAR(30),
+    DIVISI VARCHAR(50),
+    GAJI INT(30)
+);
+"""
+cursor.execute(sql)
+
